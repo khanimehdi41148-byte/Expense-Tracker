@@ -17,6 +17,9 @@ class ExpenseManager:
     def __init__(self, filename="expenses.csv"):
         self.filename = filename
         self.expenses = []
+
+    def add_expense(self, expense):
+        self.expenses.append(expense)
         
 
     
