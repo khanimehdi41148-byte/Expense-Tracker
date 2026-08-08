@@ -33,6 +33,18 @@ class ExpenseManager:
             return
         else:
             print("Expense not found")
-            
 
-    
+    def search_expense(self):
+        search_term = input("Description or Category: ")
+        found = False
+
+        for expense in self.expenses:
+            if search_term.lower() in expense.description.lower():
+                print(expense)
+                found = True
+
+            elif search_term.lower() in expense.category.lower():
+                print(expense)
+            found = True
+        if not found:
+            print("Expense not found")
