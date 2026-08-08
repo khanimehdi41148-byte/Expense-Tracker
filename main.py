@@ -48,3 +48,12 @@ class ExpenseManager:
             found = True
         if not found:
             print("Expense not found")
+
+    def show_expenses(self):
+        if not self.expenses:
+            print("Expense list is empty")
+            return
+        
+        print("Expense list: ")
+        for i, expense in enumerate(self.expenses, start=1):
+            print(f"{i}. {expense}")
