@@ -12,3 +12,11 @@ class Expense:
             f"Category: {self.category} | "
             f"Date: {self.date}"
         )
+
+class ExpenseManager:
+    def __init__(self, filename="expenses.csv"):
+        self.filename = filename
+        self.expenses = []
+        
+
+    
