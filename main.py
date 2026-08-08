@@ -57,3 +57,11 @@ class ExpenseManager:
         print("Expense list: ")
         for i, expense in enumerate(self.expenses, start=1):
             print(f"{i}. {expense}")
+
+    def total_expenses(self):
+        total = 0
+
+        for expense in self.expenses:
+            total += expense.amount
+            
+        print(f"Total expense: {total}")
