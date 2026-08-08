@@ -12,7 +12,7 @@ class Expense:
             f"Category: {self.category} | "
             f"Date: {self.date}"
         )
-
+import csv
 class ExpenseManager:
     def __init__(self, filename="expenses.csv"):
         self.filename = filename
@@ -45,7 +45,7 @@ class ExpenseManager:
 
             elif search_term.lower() in expense.category.lower():
                 print(expense)
-            found = True
+                found = True
         if not found:
             print("Expense not found")
 
@@ -75,6 +75,5 @@ class ExpenseManager:
 
             categories[expense.category] += expense.amount
 
-            for category, total in categories.item():
-                print(f"{category}: {total}")
-                
+        for category, total in categories.items():
+            print(f"{category}: {total}")
