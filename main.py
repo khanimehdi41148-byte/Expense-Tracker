@@ -63,5 +63,18 @@ class ExpenseManager:
 
         for expense in self.expenses:
             total += expense.amount
-            
+
         print(f"Total expense: {total}")
+
+    def expenses_by_category(self):
+        categories = {}
+
+        for expense in self.expenses:
+            if expense.category not in categories:
+                categories[expense.category] = 0
+
+            categories[expense.category] += expense.amount
+
+            for category, total in categories.item():
+                print(f"{category}: {total}")
+                
