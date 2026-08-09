@@ -91,3 +91,24 @@ class ExpenseManager:
                     expense.category,
                     expense.date
                 ])
+
+    def load_expenses(self):
+        try:
+            with open(self.filename, "r", newline="", encoding="utf-8") as file:
+                reader = csv.reader(file)
+
+                next(reader, None)
+
+                self.expenses.clear()
+
+                for row in reader:
+                    expense = Expense(
+                        row[0],
+                        float(row[1]),
+                        row[2],
+                        row[3]
+                    )
+                    self.expenses.append(expense)
+        except FileNotFoundError:
+            pass
+        
