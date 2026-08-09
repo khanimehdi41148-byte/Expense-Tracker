@@ -77,3 +77,17 @@ class ExpenseManager:
 
         for category, total in categories.items():
             print(f"{category}: {total}")
+    
+    def save_expenses(self):
+        with open(self.filename, "w", newline="", encoding="utf-8") as file:
+            writer = csv.writer(file)
+
+            writer.writerow(["description", "amount", "category", "date"])
+
+            for expense in self.expenses:
+                writer.writerow([
+                    expense.description,
+                    expense.amount,
+                    expense.category,
+                    expense.date
+                ])
