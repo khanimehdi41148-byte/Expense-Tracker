@@ -1,9 +1,9 @@
 class Expense:
-    def __init__(self, description, amount, category, date):
+    def __init__(self, description, amount, category):
         self.description = description
         self.amount = amount
         self.category = category
-        self.date = date
+        self.date = date.today()
 
     def __str__(self):
         return(
@@ -13,6 +13,7 @@ class Expense:
             f"Date: {self.date}"
         )
 import csv
+from datetime import date
 class ExpenseManager:
     def __init__(self, filename="expenses.csv"):
         self.filename = filename
@@ -105,10 +106,63 @@ class ExpenseManager:
                     expense = Expense(
                         row[0],
                         float(row[1]),
-                        row[2],
-                        row[3]
+                        row[2]
                     )
                     self.expenses.append(expense)
         except FileNotFoundError:
             pass
-        
+
+def main():
+    manager = ExpenseManager()
+    manager.load_expenses()
+    while True:
+        print("\n***** expense manager *****")
+        print("1. Add expense")
+        print("2. Remove expense")
+        print("3. Search expense")
+        print("4. Show all expense")
+        print("5. Show total expense")
+        print("6. Show expense by category")
+        print("7. save & exit")
+        choice = input("Choose an option: ")
+
+        if choice == "1":
+            description = input("Enter description: ")
+            try:
+                amount = float(input("Enter amount: "))
+            except ValueError:
+                print("Invalid chioce! enter number")
+                continue
+
+            category = input("Enter category: ")
+            expense = Expense(description, amount, category)
+            manager.add_expense(expense)
+            print("Expense added successfully")
+
+        elif choice == "2":
+            manager.show_expenses()
+            number = input("Enter expense number: ")
+            manager.remove_expense(number)
+
+        elif choice == "3":
+            manager.search_expense()
+
+        elif choice == "4":
+            manager.show_expenses()
+
+        elif choice == "5":
+            manager.total_expenses()
+
+        elif choice == "6":
+            manager.expenses_by_category()
+
+        elif choice == "7":
+            manager.save_expenses()
+            print("Save expenses")
+            print("GOOD BYE!")
+            break
+        else:
+            print("Please enter number")
+
+if __name__ == "__main__":
+    main()
