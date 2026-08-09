@@ -1,9 +1,9 @@
 class Expense:
-    def __init__(self, description, amount, category):
+    def __init__(self, description, amount, category, expense_date=None):
         self.description = description
         self.amount = amount
         self.category = category
-        self.date = date.today()
+        self.date = expense_date if expense_date else date.today()
 
     def __str__(self):
         return(
@@ -106,7 +106,8 @@ class ExpenseManager:
                     expense = Expense(
                         row[0],
                         float(row[1]),
-                        row[2]
+                        row[2],
+                        date.fromisoformat(row[3])
                     )
                     self.expenses.append(expense)
         except FileNotFoundError:
@@ -118,7 +119,7 @@ def main():
     while True:
         print("\n***** expense manager *****")
         print("1. Add expense")
-        print("2. Remove expense")
+        print("2. Remove expense")  
         print("3. Search expense")
         print("4. Show all expense")
         print("5. Show total expense")
@@ -127,14 +128,24 @@ def main():
         choice = input("Choose an option: ")
 
         if choice == "1":
-            description = input("Enter description: ")
+            description = input("Enter description: ").strip()
+            if not description:
+                print("Description cannot be empty.")
+                continue
+
             try:
                 amount = float(input("Enter amount: "))
             except ValueError:
                 print("Invalid chioce! enter number")
                 continue
 
-            category = input("Enter category: ")
+            if amount <= 0:
+                print("AMount must be greater than 0.")
+                continue
+
+            category = input("Enter category: ").strip()
+            if not category:
+                print("Category cannot be empty.")
             expense = Expense(description, amount, category)
             manager.add_expense(expense)
             print("Expense added successfully")
